@@ -2,7 +2,8 @@ import React from "react";
 import Topbar from "../components/Topbar";
 import AboutUs from "../components/AboutUs";
 import Services from "../components/Services";
-export const Home = () => {
+const Home = () => {
+  console.log("Home");
   return (
     <>
       <Topbar />
@@ -11,3 +12,4 @@ export const Home = () => {
     </>
   );
 };
+export default Home;

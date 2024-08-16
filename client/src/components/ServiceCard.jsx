@@ -5,7 +5,7 @@ import Card from "react-bootstrap/Card";
 const ServiceCard = ({ title, text }) => {
   return (
     <Card
-      style={{ height: "24rem", width: "15rem" }}
+      style={{ height: "24rem", width: "25rem" }}
       className="m-5 bg-dark text-light"
     >
       <Card.Body>
