@@ -1,0 +1,15 @@
+{
+  "name": "text-tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server":"npm start --prefix server",
+    "client":"npm run dev --prefix client",
+    "watch":"npm run server & npm run client"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
