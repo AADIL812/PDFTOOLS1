@@ -1,7 +1,11 @@
 import React from "react";
-
+import Menubar from "../components/Menubar";
 const Mergepdf = () => {
-  return <div>Mergepdf</div>;
+  return (
+    <>
+      <Menubar />
+    </>
+  );
 };
 
 export default Mergepdf;

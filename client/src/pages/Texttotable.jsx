@@ -1,7 +1,11 @@
 import React from "react";
-
+import Menubar from "../components/Menubar";
 const Texttotable = () => {
-  return <div>Texttotable</div>;
+  return (
+    <>
+      <Menubar />
+    </>
+  );
 };
 
 export default Texttotable;

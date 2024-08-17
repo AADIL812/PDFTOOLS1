@@ -1,7 +1,11 @@
 import React from "react";
-
+import Menubar from "../components/Menubar";
 const Pdftoword = () => {
-  return <div>Pdftoword</div>;
+  return (
+    <>
+      <Menubar />
+    </>
+  );
 };
 
 export default Pdftoword;
