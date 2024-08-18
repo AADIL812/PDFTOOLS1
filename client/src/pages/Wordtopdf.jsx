@@ -5,7 +5,7 @@ const Wordtopdf = () => {
   return (
     <>
       <Menubar />
-      <FileUpload />
+      <FileUpload serviceno={1} />
     </>
   );
 };
