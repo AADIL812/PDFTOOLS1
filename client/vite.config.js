@@ -9,5 +9,6 @@ export default defineConfig({
   },
   build: {
     outDir: path.resolve(__dirname, "../server/public"), // Set the build directory
+    emptyOutDir: true,
   },
 });

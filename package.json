@@ -5,12 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server":"npm start --prefix server",
-    "client":"npm run dev --prefix client",
-    "watch":"npm run server & npm run client",
-    "deploy":"npm run build --prefix client & npm run server"
+    "server": "npm start --prefix server",
+    "client": "npm run dev --prefix client",
+    "watch": "npm run server & npm run client",
+    "deploy": "npm run build --prefix client & npm run server"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
 }

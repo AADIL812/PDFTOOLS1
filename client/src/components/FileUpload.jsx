@@ -1,46 +1,103 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { useState } from "react";
 import { FaFileWord } from "react-icons/fa";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import { FaFilePdf, FaTableCells } from "react-icons/fa6";
+import axios from "axios"; // Import axios
 
 const FileUpload = ({ serviceno }) => {
-  // Function to conditionally render content based on serviceno
-  const TextAdd = (n0) => {
-    if (n0 === 1) {
-      return (
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <FaFileWord style={{ fontSize: "40px" }} />
-          <FaArrowAltCircleRight style={{ fontSize: "40px" }} />
-          <FaFilePdf style={{ fontSize: "40px" }} />
-        </div>
-      );
-    } else if (n0 === 2) {
-      return (
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <FaFilePdf style={{ fontSize: "40px" }} />
-          <FaArrowAltCircleRight style={{ fontSize: "40px" }} />
-          <FaFileWord style={{ fontSize: "40px" }} />
-        </div>
-      );
-    } else {
-      return (
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <FaFilePdf style={{ fontSize: "40px" }} />
-          <FaArrowAltCircleRight style={{ fontSize: "40px" }} />
-          <FaTableCells style={{ fontSize: "40px" }} />
-        </div>
-      );
+  // Set API URL based on service number
+  const getApiUrl = (n0) => {
+    switch (n0) {
+      case 1:
+        return "http://localhost:5000/wordtopdf";
+      case 2:
+        return "http://localhost:5000/pdftoword";
+      case 3:
+        return "http://localhost:5000/datatojson";
+      case 4:
+        return "http://localhost:5000/mergepdf";
+      default:
+        return "";
+    }
+  };
+
+  const api = getApiUrl(serviceno);
+
+  // Function to render icons based on service number
+  const renderIcons = () => {
+    switch (serviceno) {
+      case 1:
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <FaFileWord style={{ fontSize: "40px" }} />
+            <FaArrowAltCircleRight style={{ fontSize: "40px" }} />
+            <FaFilePdf style={{ fontSize: "40px" }} />
+          </div>
+        );
+      case 2:
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <FaFilePdf style={{ fontSize: "40px" }} />
+            <FaArrowAltCircleRight style={{ fontSize: "40px" }} />
+            <FaFileWord style={{ fontSize: "40px" }} />
+          </div>
+        );
+      case 3:
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <FaFilePdf style={{ fontSize: "40px" }} />
+            <FaArrowAltCircleRight style={{ fontSize: "40px" }} />
+            <FaTableCells style={{ fontSize: "40px" }} />
+          </div>
+        );
+      case 4:
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <FaFilePdf style={{ fontSize: "40px" }} />
+            <FaArrowAltCircleRight style={{ fontSize: "40px" }} />
+            <FaFilePdf style={{ fontSize: "40px" }} />
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+  const [file, setFile] = useState(null);
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!file) {
+      alert("Please select a file first.");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      await axios.post(api, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      alert("File uploaded successfully");
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      alert("Failed to upload file");
     }
   };
 
   return (
-    <Form style={{ margin: "5rem" }}>
+    <Form style={{ margin: "5rem" }} onSubmit={handleSubmit}>
       <Form.Group controlId="formFile" className="mb-3">
-        {/* Call TextAdd with serviceno */}
-        <Form.Label>{TextAdd(serviceno)}</Form.Label>
-        <Form.Control type="file" />
+        <Form.Label>{renderIcons()}</Form.Label>
+        <Form.Control type="file" onChange={handleFileChange} />
       </Form.Group>
       <Button variant="primary" type="submit">
         Upload
