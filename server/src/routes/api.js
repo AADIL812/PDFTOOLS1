@@ -1,7 +1,11 @@
+// routes/api.js
 const express = require("express");
-const api = express.Router();
 const { pdftowordRouter } = require("./pdftoword.router");
+const { wordtopdfrouter } = require("./wordtopdf.router");
+const { mergepdfRouter } = require("./mergepdfs.router");
+const router = express.Router();
 
-api.use("/pdftoword", pdftowordRouter);
-
-module.exports = { api };
+router.use("/pdftoword", pdftowordRouter);
+router.use("/wordtopdf", wordtopdfrouter);
+router.use("/mergepdf", mergepdfRouter);
+module.exports = router;

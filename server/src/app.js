@@ -2,15 +2,15 @@ const mongoose = require("mongoose");
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
+const api = require("./routes/api");
 const app = express();
 
-// Corrected: Define the MongoDB connection string as a string, not with require()
 const mongoURI =
   "mongodb+srv://pdftools:Aadil112233@pdftoolscluster.bzxbsfs.mongodb.net/?retryWrites=true&w=majority&appName=pdftoolscluster";
 
 mongoose
   .connect(mongoURI, {
-    // useNewUrlParser: true,
+    useNewUrlParser: true,
     // useUnifiedTopology: true,
   })
   .then(() => console.log("MongoDB connected successfully"))
@@ -20,13 +20,14 @@ mongoose
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000", // Corrected CORS origin
+    origin: "http://localhost:3000",
   })
 );
 
 // Serve static files
 app.use(express.static(path.join(__dirname, "..", "public")));
-
+app.use("/", api);
+app.use("/files", express.static(path.join(__dirname, "..", "..", "files")));
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "public", "index.html"));
 });
