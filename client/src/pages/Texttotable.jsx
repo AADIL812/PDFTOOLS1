@@ -5,7 +5,7 @@ const Texttotable = () => {
   return (
     <>
       <Menubar />
-      <FileUpload serviceno={4} />
+      <FileUpload serviceno={3} />
     </>
   );
 };

@@ -15,7 +15,7 @@ const FileUpload = ({ serviceno }) => {
       case 2:
         return "http://localhost:5000/pdftoword";
       case 3:
-        return "http://localhost:5000/datatojson";
+        return "http://localhost:5000/texttotable";
       case 4:
         return "http://localhost:5000/mergepdf";
       default:
