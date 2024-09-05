@@ -2,7 +2,10 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
-const { pdftowordupload } = require("../controllers/pdftoword.controller");
+const {
+  pdftowordupload,
+  pdftowordconvert,
+} = require("../controllers/pdftoword.controller");
 
 const uploadPath = path.join(__dirname, "../../../files");
 
@@ -25,5 +28,5 @@ const upload = multer({ storage: storage });
 const pdftowordRouter = express.Router();
 
 pdftowordRouter.post("/", upload.single("file"), pdftowordupload);
-
+pdftowordRouter.get("/", pdftowordconvert);
 module.exports = { pdftowordRouter };
