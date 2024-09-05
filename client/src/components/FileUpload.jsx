@@ -8,7 +8,6 @@ import { FaFilePdf, FaTableCells } from "react-icons/fa6";
 import axios from "axios"; // Import axios
 
 const FileUpload = ({ serviceno }) => {
-  // Set API URL based on service number
   const getApiUrl = (n0) => {
     switch (n0) {
       case 1:
@@ -26,7 +25,6 @@ const FileUpload = ({ serviceno }) => {
 
   const api = getApiUrl(serviceno);
 
-  // Function to render icons based on service number
   const renderIcons = () => {
     switch (serviceno) {
       case 1:

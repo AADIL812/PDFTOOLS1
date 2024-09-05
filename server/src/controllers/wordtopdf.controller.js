@@ -3,8 +3,8 @@ const wordtopdf = require("../models/wordtopdf.mongo");
 async function wordtopdfupload(req, res) {
   console.log(req.file);
 
-  const { filename, origalname } = req.file;
-  const title = origalname;
+  const { filename, originalname } = req.file;
+  const title = originalname;
   try {
     const newwordtopdf = new wordtopdf({
       word: filename,
@@ -15,7 +15,7 @@ async function wordtopdfupload(req, res) {
     res.status(201).json({
       msg: "Word file uploaded successfully",
     });
-  } catch {
+  } catch(error) {
     console.log("Error uploading file");
     res.status(500).json({
       msg: "Word file upload failed",
