@@ -6,6 +6,7 @@ import { FaFileWord } from "react-icons/fa";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import { FaFilePdf, FaTableCells } from "react-icons/fa6";
 import PdftoWordConvert from "./PdftoWordConvert";
+import WordtoPdfConvert from "./WordtoPdfConvert";
 import axios from "axios"; // Import axios
 
 const FileUpload = ({ serviceno }) => {
@@ -99,8 +100,15 @@ const FileUpload = ({ serviceno }) => {
         <Form.Control type="file" onChange={handleFileChange} />
       </Form.Group>
 
-      {/* Display Upload and Convert buttons side by side for serviceno 2 */}
-      {serviceno === 2 ? (
+      {/* Display Upload and Convert buttons side by side for serviceno 1 and 2 */}
+      {serviceno === 1 ? (
+        <div className="d-flex justify-content-between">
+          <Button variant="primary" type="submit">
+            Upload
+          </Button>
+          <WordtoPdfConvert />
+        </div>
+      ) : serviceno === 2 ? (
         <div className="d-flex justify-content-between">
           <Button variant="primary" type="submit">
             Upload

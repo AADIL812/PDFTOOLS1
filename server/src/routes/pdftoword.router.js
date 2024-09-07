@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now();
-    cb(null, uniqueSuffix + file.originalname);
+    cb(null, uniqueSuffix + "-" + file.originalname);
   },
 });
 
@@ -28,5 +28,6 @@ const upload = multer({ storage: storage });
 const pdftowordRouter = express.Router();
 
 pdftowordRouter.post("/", upload.single("file"), pdftowordupload);
-pdftowordRouter.get("/", pdftowordconvert);
+pdftowordRouter.get("/getlast", pdftowordconvert);
+
 module.exports = { pdftowordRouter };

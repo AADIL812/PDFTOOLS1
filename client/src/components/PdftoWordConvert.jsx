@@ -3,14 +3,16 @@ import { Button } from "react-bootstrap";
 import axios from "axios";
 
 const PdftoWordConvert = () => {
-  const handleConvert = async () => {
+  const handleConvert = async (e) => {
+    e.preventDefault();
     try {
       const response = await axios.get(
-        "http://localhost:5000/pdftoword/lastpdf",
+        "http://localhost:5000/pdftoword/getlast", // Ensure this endpoint is correct
         {
           responseType: "blob", // Important to handle binary data
         }
       );
+
       if (response.status === 200) {
         // Create a URL for the blob
         const url = window.URL.createObjectURL(

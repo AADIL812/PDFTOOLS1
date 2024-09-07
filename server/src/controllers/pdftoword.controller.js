@@ -1,35 +1,71 @@
 const pdftoword = require("../models/pdftoword.mongo");
+const pdfParse = require("pdf-parse");
 const { lastPdfUpload } = require("../models/pdftoword.model");
 const path = require("path");
-const express = require("express");
 const fs = require("fs");
+const officegen = require("officegen");
+
 async function pdftowordconvert(req, res) {
   console.log("pdftowordconvert function called");
+  const lastpdf = await lastPdfUpload();
+  const pdfPath = path.join(__dirname, "../../../files", lastpdf.pdf);
+
   try {
-    const lastUpload = await lastPdfUpload(); // Retrieve the latest upload
-    console.log(lastUpload);
-    if (lastUpload) {
-      // //const filePath = path.join(__dirname, "../../../files", lastUpload.pdf);
-      // if (fs.existsSync(filePath)) {
-      //   res.download(filePath, "converted-file.docx", (err) => {
-      //     if (err) {
-      //       console.error("Error sending file:", err);
-      //       res.status(500).json({ msg: "Error sending file" });
-      //     }
-      //   });
-      // } else {
-      //   res.status(404).json({ msg: "File not found" });
-      // }
-      res.status(201).json(lastUpload.pdf);
-      console.log(lastUpload);
-    } else {
-      res.status(404).json({ msg: "No uploads found" });
+    // Read the uploaded PDF file
+    let dataBuffer = fs.readFileSync(pdfPath);
+
+    // Extract text from the PDF file
+    const data = await pdfParse(dataBuffer);
+
+    // Create a new Word document
+    const docx = officegen("docx");
+
+    // Error handling for officegen
+    docx.on("error", function (err) {
+      console.error("Error with officegen:", err);
+      res.status(500).send("Error with officegen: " + err.message);
+    });
+
+    // Add a new paragraph with the extracted text
+    docx.createP().addText(data.text);
+
+    // Define the output path for the Word document
+    const wordDir = path.join(__dirname, "../../../download/files");
+    const wordPath = path.join(wordDir, `${lastpdf.title}.docx`);
+
+    // Check if the directory exists, if not, create it
+    if (!fs.existsSync(wordDir)) {
+      fs.mkdirSync(wordDir, { recursive: true });
     }
-  } catch (err) {
-    console.error("Error in retrieving data:", err);
-    res.status(500).json({ msg: "Error in retrieving data" });
+
+    // Create a writable stream to save the Word document
+    const out = fs.createWriteStream(wordPath);
+
+    // Generate the Word document and save it to a file
+    docx.generate(out);
+
+    out.on("finish", function () {
+      console.log("Word document created successfully");
+
+      // Send the Word document file as a download
+      res.download(wordPath, `${lastpdf.title}.docx`, (err) => {
+        if (err) {
+          console.error("Error sending the Word document:", err);
+          res.status(500).send("Error sending the Word document.");
+        }
+      });
+    });
+
+    out.on("error", function (err) {
+      console.error("Error writing the Word document:", err);
+      res.status(500).send("Error writing the Word document: " + err.message);
+    });
+  } catch (error) {
+    console.error("Error processing PDF:", error);
+    res.status(500).send("Error processing PDF: " + error.message);
   }
 }
+
 async function pdftowordupload(req, res) {
   const { filename, originalname } = req.file;
   const title = originalname;
