@@ -8,9 +8,8 @@ import { FaFilePdf, FaTableCells } from "react-icons/fa6";
 import PdftoWordConvert from "./PdftoWordConvert";
 import WordtoPdfConvert from "./WordtoPdfConvert";
 import axios from "axios"; // Import axios
-
-const FileUpload = ({ serviceno }) => {
-  const getApiUrl = (n0) => {
+const FileUpload = ({ serviceno, no }) => {
+  const getApiUrl = (n0, no) => {
     switch (n0) {
       case 1:
         return "http://localhost:5000/wordtopdf";
@@ -19,13 +18,13 @@ const FileUpload = ({ serviceno }) => {
       case 3:
         return "http://localhost:5000/texttotable";
       case 4:
-        return "http://localhost:5000/mergepdf";
+        return `http://localhost:5000/mergepdf/${no}`;
       default:
         return "";
     }
   };
 
-  const api = getApiUrl(serviceno);
+  const api = getApiUrl(service, no);
 
   const renderIcons = () => {
     switch (serviceno) {
@@ -101,25 +100,13 @@ const FileUpload = ({ serviceno }) => {
       </Form.Group>
 
       {/* Display Upload and Convert buttons side by side for serviceno 1 and 2 */}
-      {serviceno === 1 ? (
-        <div className="d-flex justify-content-between">
-          <Button variant="primary" type="submit">
-            Upload
-          </Button>
-          <WordtoPdfConvert />
-        </div>
-      ) : serviceno === 2 ? (
-        <div className="d-flex justify-content-between">
-          <Button variant="primary" type="submit">
-            Upload
-          </Button>
-          <PdftoWordConvert />
-        </div>
-      ) : (
+      <div className="d-flex justify-content-between">
         <Button variant="primary" type="submit">
           Upload
         </Button>
-      )}
+        {serviceno === 1 && <WordtoPdfConvert />}
+        {serviceno === 2 && <PdftoWordConvert />}
+      </div>
     </Form>
   );
 };

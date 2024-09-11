@@ -30,7 +30,7 @@ async function pdftowordconvert(req, res) {
     docx.createP().addText(data.text);
 
     // Define the output path for the Word document
-    const wordDir = path.join(__dirname, "../../../download/files");
+    const wordDir = path.join(__dirname, "../../../downloadfiles");
     const wordPath = path.join(wordDir, `${lastpdf.title}.docx`);
 
     // Check if the directory exists, if not, create it

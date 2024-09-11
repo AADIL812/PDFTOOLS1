@@ -13,22 +13,18 @@ const WordtoPdfConvert = () => {
         }
       );
 
-      if (response.status === 201 || response.status === 200) {
-        // Create a URL for the blob
+      if (response.status === 200) {
         const url = window.URL.createObjectURL(
-          new Blob([response.data], { type: response.headers["content-type"] })
+          new Blob([response.data], { type: "application/pdf" })
         );
 
-        // Create a link element and trigger a download
-        // const link = document.createElement("a");
-        // link.href = url;
-        // link.setAttribute("download", "converted-file.pdf"); // Adjust the filename if necessary
-        // document.body.appendChild(link);
-        // link.click();
-
-        // // Cleanup after download
-        // document.body.removeChild(link);
-        // window.URL.revokeObjectURL(url);
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "converted-file.pdf"); // Adjust the filename if necessary
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
 
         console.log("Word to PDF conversion successful");
       } else {
