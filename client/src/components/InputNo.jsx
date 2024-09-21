@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
 function InputNo({ onNumberSubmit }) {
@@ -11,22 +10,20 @@ function InputNo({ onNumberSubmit }) {
   };
 
   return (
-    <>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formNumber">
-          <Form.Label>Enter a number</Form.Label>
-          <Form.Control
-            type="number"
-            placeholder="Enter number"
-            value={number}
-            onChange={(e) => setNumber(e.target.value)}
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
-    </>
+    <Form onSubmit={handleSubmit}>
+      <Form.Group controlId="formNumber">
+        <Form.Label>Enter a number</Form.Label>
+        <Form.Control
+          type="number"
+          placeholder="Enter number"
+          value={number}
+          onChange={(e) => setNumber(parseInt(e.target.value, 10) || 0)} // Parsing the input to an integer
+        />
+      </Form.Group>
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+    </Form>
   );
 }
 

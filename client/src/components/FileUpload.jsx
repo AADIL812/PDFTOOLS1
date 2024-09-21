@@ -9,8 +9,8 @@ import PdftoWordConvert from "./PdftoWordConvert";
 import WordtoPdfConvert from "./WordtoPdfConvert";
 import axios from "axios"; // Import axios
 const FileUpload = ({ serviceno, no }) => {
-  const getApiUrl = (n0, no) => {
-    switch (n0) {
+  const getApiUrl = (serviceno, no) => {
+    switch (serviceno) {
       case 1:
         return "http://localhost:5000/wordtopdf";
       case 2:
@@ -18,13 +18,13 @@ const FileUpload = ({ serviceno, no }) => {
       case 3:
         return "http://localhost:5000/texttotable";
       case 4:
-        return `http://localhost:5000/mergepdf/${no}`;
+        return "http://localhost:5000/mergepdf";
       default:
         return "";
     }
   };
 
-  const api = getApiUrl(service, no);
+  const api = getApiUrl(serviceno, no);
 
   const renderIcons = () => {
     switch (serviceno) {
@@ -68,17 +68,18 @@ const FileUpload = ({ serviceno, no }) => {
   const [file, setFile] = useState(null);
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    setFile(e.target.files[0]); // Only take the first file
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!file) {
-      alert("Please select a file first.");
+      alert("Please select a file.");
       return;
     }
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", file); // Append a single file
+
     try {
       await axios.post(api, formData, {
         headers: {

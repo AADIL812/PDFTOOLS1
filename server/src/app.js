@@ -28,6 +28,10 @@ app.use(
 app.use(express.static(path.join(__dirname, "..", "public")));
 app.use("/", api);
 app.use("/files", express.static(path.join(__dirname, "..", "..", "files")));
+app.use(
+  "/downloadfiles",
+  express.static(path.join(__dirname, "..", "..", "downloadfiles"))
+);
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "public", "index.html"));
 });

@@ -1,9 +1,9 @@
-const Mergepdf = require("./mergepdf.mongo");
+const PdftoWord = require("./pdftoword.mongo");
 
 async function getLastNFiles(n) {
   try {
     // Find the last `n` documents, sorted by creation date in descending order
-    const files = await Mergepdf.find()
+    const files = await PdftoWord.find()
       .sort({ createdAt: -1 }) // Ensure there's a createdAt field in your schema or adjust accordingly
       .limit(n)
       .exec();

@@ -1,9 +1,11 @@
-// src/routes/mergepdf.router.js
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
-const { mergepdfupload } = require("../controllers/mergepdf.controller");
+const {
+  mergepdfupload,
+  mergepdf_merge,
+} = require("../controllers/mergepdf.controller");
 
 const uploadPath = path.join(__dirname, "../../../files");
 
@@ -18,14 +20,14 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now();
-    cb(null, uniqueSuffix + path.extname(file.originalname));
+    cb(null, uniqueSuffix + "-" + file.originalname);
   },
 });
 
 const upload = multer({ storage: storage });
 const mergepdfRouter = express.Router();
 
-// Route to handle merging of PDFs, accepts multiple files
-mergepdfRouter.post("/n", upload.single("file"), mergepdfupload);
+mergepdfRouter.post("/", upload.single("file"), mergepdfupload); // Ensure the field name "file" matches
+mergepdfRouter.get("/:n", mergepdf_merge);
 
 module.exports = { mergepdfRouter };
