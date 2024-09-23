@@ -3,7 +3,10 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
-const { pdftotableupload } = require("../controllers/pdftotable.controller");
+const {
+  pdftotableupload,
+  pdftotableConvert,
+} = require("../controllers/pdftotable.controller");
 
 const uploadPath = path.join(__dirname, "../../../files");
 
@@ -26,5 +29,7 @@ const upload = multer({ storage: storage });
 const pdftotableRouter = express.Router();
 
 pdftotableRouter.post("/", upload.single("file"), pdftotableupload);
+
+pdftotableRouter.get("/getlast", pdftotableConvert);
 
 module.exports = { pdftotableRouter };

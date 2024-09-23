@@ -7,6 +7,7 @@ import { FaArrowAltCircleRight } from "react-icons/fa";
 import { FaFilePdf, FaTableCells } from "react-icons/fa6";
 import PdftoWordConvert from "./PdftoWordConvert";
 import WordtoPdfConvert from "./WordtoPdfConvert";
+import PdftotableConvert from "./PdftotableConvert";
 import axios from "axios"; // Import axios
 const FileUpload = ({ serviceno, no }) => {
   const getApiUrl = (serviceno, no) => {
@@ -107,6 +108,7 @@ const FileUpload = ({ serviceno, no }) => {
         </Button>
         {serviceno === 1 && <WordtoPdfConvert />}
         {serviceno === 2 && <PdftoWordConvert />}
+        {serviceno === 3 && <PdftotableConvert />}
       </div>
     </Form>
   );
