@@ -11,7 +11,7 @@ const MergePdfbutton = ({ n }) => {
       if (n > 0) {
         // Request the server to merge the PDFs and return the file path
         const response = await axios.get(
-          `http://localhost:5000/mergepdf/${n}`,
+          `https://pdftools1-2.onrender.com/${n}`,
           {
             responseType: "blob", // Set responseType to 'blob' for binary data
           }
