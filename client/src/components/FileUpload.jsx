@@ -8,18 +8,19 @@ import { FaFilePdf, FaTableCells } from "react-icons/fa6";
 import PdftoWordConvert from "./PdftoWordConvert";
 import WordtoPdfConvert from "./WordtoPdfConvert";
 import PdftotableConvert from "./PdftotableConvert";
+https://pdftools1-2.onrender.com
 import axios from "axios"; // Import axios
 const FileUpload = ({ serviceno, no }) => {
   const getApiUrl = (serviceno, no) => {
     switch (serviceno) {
       case 1:
-        return "http://localhost:5000/wordtopdf";
+        return "https://pdftools1-2.onrender.com/wordtopdf";
       case 2:
-        return "http://localhost:5000/pdftoword";
+        return "https://pdftools1-2.onrender.com/pdftoword";
       case 3:
-        return "http://localhost:5000/texttotable";
+        return "https://pdftools1-2.onrender.com/texttotable";
       case 4:
-        return "http://localhost:5000/mergepdf";
+        return "https://pdftools1-2.onrender.com/mergepdf";
       default:
         return "";
     }
