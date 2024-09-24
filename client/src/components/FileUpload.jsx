@@ -8,7 +8,6 @@ import { FaFilePdf, FaTableCells } from "react-icons/fa6";
 import PdftoWordConvert from "./PdftoWordConvert";
 import WordtoPdfConvert from "./WordtoPdfConvert";
 import PdftotableConvert from "./PdftotableConvert";
-https://pdftools1-2.onrender.com
 import axios from "axios"; // Import axios
 const FileUpload = ({ serviceno, no }) => {
   const getApiUrl = (serviceno, no) => {
