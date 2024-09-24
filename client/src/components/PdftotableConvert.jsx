@@ -7,7 +7,7 @@ const PdftotableConvert = () => {
     e.preventDefault();
     try {
       const response = await axios.get(
-        "http://localhost:5000/texttotable/getlast", // Backend URL
+        "https://pdftools1-2.onrender.com/texttotable/getlast", // Backend URL
         {
           responseType: "blob", // Expecting text data
         }

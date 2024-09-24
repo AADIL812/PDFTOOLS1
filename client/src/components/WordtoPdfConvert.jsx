@@ -7,7 +7,7 @@ const WordtoPdfConvert = () => {
     e.preventDefault();
     try {
       const response = await axios.get(
-        "http://localhost:5000/wordtopdf/getlast",
+        "https://pdftools1-2.onrender.com/wordtopdf/getlast",
         {
           responseType: "blob", // Important to handle binary data
         }
