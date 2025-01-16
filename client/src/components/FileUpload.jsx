@@ -82,6 +82,7 @@ const FileUpload = ({ serviceno, no }) => {
     formData.append("file", file); // Append a single file
 
     try {
+      axios.defaults.withCredentials=true;
       await axios.post(api, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
