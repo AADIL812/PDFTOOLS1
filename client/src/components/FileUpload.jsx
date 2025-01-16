@@ -13,13 +13,13 @@ const FileUpload = ({ serviceno, no }) => {
   const getApiUrl = (serviceno, no) => {
     switch (serviceno) {
       case 1:
-        return "https://pdftools1-2.onrender.com/wordtopdf";
+        return "https://pdftools-1.vercel.app/wordtopdf";
       case 2:
-        return "https://pdftools1-2.onrender.com/pdftoword";
+        return "https://pdftools-1.vercel.app/pdftoword";
       case 3:
-        return "https://pdftools1-2.onrender.com/texttotable";
+        return "https://pdftools-1.vercel.app/texttotable";
       case 4:
-        return "https://pdftools1-2.onrender.com/mergepdf";
+        return "https://pdftools-1.vercel.app/mergepdf";
       default:
         return "";
     }
